@@ -23,11 +23,13 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(__dir__) do
     `git ls-files -z`.split("\x0").reject do |f|
       (File.expand_path(f) == __FILE__) ||
-        f.start_with?(*%w[bin/ test/ spec/ features/ .git .circleci appveyor Gemfile])
+        f.start_with?(*%w[test/ spec/ features/ .git .circleci appveyor Gemfile]) ||
+        f == "bin/setup" ||
+        f == "bin/console"
     end
   end
-  spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.bindir = "bin"  
+  spec.executables = spec.files.grep(%r{\Abin/}) { |f| File.basename(f) }  
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 2.4.14"
